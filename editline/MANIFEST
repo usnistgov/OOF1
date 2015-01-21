@@ -1,0 +1,15 @@
+   File Name		Archive #	Description
+-----------------------------------------------------------
+ MANIFEST                   1	This shipping list
+ Make.os9                   1	OS-9 makefile
+ Makefile                   1	Unix makefile
+ README                     1	Release notes and copyright
+ complete.c                 1	Filename completion routines
+ editline.3                 1	Manual page for editline library
+ editline.c                 1	Line-editing routines
+ editline.h                 1	Internal library header file
+ os9.h                      1	OS-9-specific declarations
+ sysos9.c                   1	OS-9-specific routines
+ sysunix.c                  1	Unix-specific routines
+ testit.c                   1	Test driver
+ unix.h                     1	Unix-specific declarations

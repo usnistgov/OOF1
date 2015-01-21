@@ -1,0 +1,2910 @@
+Magic: 13000
+
+Internal Form Definition File
+    (do not change)
+
+Number of forms: 3
+Unit of measure: FL_COORD_PIXEL
+SnapGrid: 5
+
+=============== FORM ===============
+Name: image_drawer
+Width: 760
+Height: 530
+Number of Objects: 147
+
+--------------------
+class: FL_BOX
+type: UP_BOX
+box: 0 0 760 530
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: background
+callback: 
+argument: 
+
+--------------------
+class: FL_BOX
+type: FLAT_BOX
+box: 10 55 225 435
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: dashboard_area
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 9 495 108 27
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Close
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: closebutton
+callback: ImageFormGfx::CB_close
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 122 496 108 27
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Save
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: savebutton
+callback: ImageFormGfx::CB_save
+argument: 0
+
+--------------------
+class: FL_BEGIN_GROUP
+type: 0
+box: 0 10 10 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: coordinates
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 95 210 20
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLDITALIC_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Left mouse zooms out
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: FLOAT_INPUT
+box: 115 170 100 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Zoom Factor = 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_zoomfactor
+callback: CoordDashboard::CB_zoomfactor
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 25 231 125 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Fit to Window
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_showall
+callback: CoordDashboard::CB_center
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 155 231 60 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Redraw
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_redraw
+callback: CoordDashboard::CB_redraw
+argument: 0
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 20 305 170 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: xmin
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: text_xmin
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 20 335 170 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: xmax
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: text_xmax
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 20 365 170 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: ymin
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: text_ymin
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 20 395 170 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: ymax
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: text_ymax
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 116 210 20
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLDITALIC_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Middle mouse drags image
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 138 210 20
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLDITALIC_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Right  mouse zooms in
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 16 65 210 20
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLDITALIC_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Click on the image...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_LABELFRAME
+type: ENGRAVED_FRAME
+box: 15 295 195 140
+boxtype: FL_NO_BOX
+colors: FL_BLACK FL_INDIANRED
+alignment: FL_ALIGN_TOP_LEFT
+style: FL_BOLDITALIC_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Visible Region
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 0
+
+--------------------
+class: FL_INPUT
+type: FLOAT_INPUT
+box: 110 445 105 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Scale Factor
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_scalefactor
+callback: CoordDashboard::CB_input_scalefactor
+argument: 0
+
+--------------------
+class: FL_END_GROUP
+type: 0
+box: 0 0 0 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_CHOICE
+type: NORMAL_CHOICE
+box: 37 15 165 31
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_BLACK
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_NORMAL_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: current_dashboard_menu
+callback: ImageFormGfx::CB_dashboard
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: HIDDEN_BUTTON
+box: 5 5 35 35
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_home
+callback: ImageFormGfx::CB_home
+argument: 0
+
+--------------------
+class: FL_BEGIN_GROUP
+type: 0
+box: 0 10 10 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: display
+callback: 
+argument: 
+
+--------------------
+class: FL_ROUNDBUTTON
+type: RADIO_BUTTON
+box: 25 80 30 31
+boxtype: FL_NO_BOX
+colors: FL_MCOL FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Image
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_image
+callback: DisplayDashboard::CB_button_image
+argument: 0
+
+--------------------
+class: FL_ROUNDBUTTON
+type: RADIO_BUTTON
+box: 25 115 30 31
+boxtype: FL_NO_BOX
+colors: FL_MCOL FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Material
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_material
+callback: DisplayDashboard::CB_button_material
+argument: 0
+
+--------------------
+class: FL_ROUNDBUTTON
+type: PUSH_BUTTON
+box: 20 220 30 30
+boxtype: FL_NO_BOX
+colors: FL_MCOL FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Mesh
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_mesh
+callback: DisplayDashboard::CB_button_mesh
+argument: 0
+
+--------------------
+class: FL_INPUT
+type: INT_INPUT
+box: 95 220 55 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_BOTTOM
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: line width
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_meshwidth
+callback: DisplayDashboard::CB_input_meshwidth
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 155 220 55 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Color
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_meshcolor
+callback: DisplayDashboard::CB_button_meshcolor
+argument: 0
+
+--------------------
+class: FL_ROUNDBUTTON
+type: PUSH_BUTTON
+box: 24 293 30 30
+boxtype: FL_NO_BOX
+colors: FL_MCOL FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Pixels
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_selectedpixels
+callback: DisplayDashboard::CB_button_selpix
+argument: 0
+
+--------------------
+class: FL_ROUNDBUTTON
+type: PUSH_BUTTON
+box: 24 323 30 30
+boxtype: FL_NO_BOX
+colors: FL_MCOL FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Mesh Triangles
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_selectedmesh
+callback: DisplayDashboard::CB_button_selectedmesh
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 154 293 55 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Color
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_selpixcolor
+callback: DisplayDashboard::CB_button_pixcolor
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 154 323 55 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Color
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_selectedmeshcolor
+callback: DisplayDashboard::CB_button_selectedmeshcolor
+argument: 0
+
+--------------------
+class: FL_LABELFRAME
+type: ENGRAVED_FRAME
+box: 25 285 190 75
+boxtype: FL_NO_BOX
+colors: FL_BLACK FL_INDIANRED
+alignment: FL_ALIGN_TOP_LEFT
+style: FL_BOLDITALIC_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Selected...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_ROUNDBUTTON
+type: PUSH_BUTTON
+box: 25 380 30 30
+boxtype: FL_NO_BOX
+colors: FL_MCOL FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Flrewalls
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_firewalls
+callback: DisplayDashboard::CB_button_firewalls
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 155 380 55 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Color
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_firewallcolor
+callback: DisplayDashboard::CB_button_firewallcolor
+argument: 0
+
+--------------------
+class: FL_CHECKBUTTON
+type: PUSH_BUTTON
+box: 60 140 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: show by pixel
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_pixmaterial
+callback: DisplayDashboard::CB_button_pixmaterial
+argument: 0
+
+--------------------
+class: FL_CHECKBUTTON
+type: PUSH_BUTTON
+box: 60 170 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: show by triangle
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_trimaterial
+callback: DisplayDashboard::CB_button_trimaterial
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 155 425 55 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Color
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_nomaterialcolor
+callback: DisplayDashboard::CB_button_nomaterialcolor
+argument: 0
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 45 425 110 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Default Material
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_END_GROUP
+type: 0
+box: 0 0 0 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_BEGIN_GROUP
+type: 0
+box: 0 10 10 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: imagemanager
+callback: 
+argument: 
+
+--------------------
+class: FL_BROWSER
+type: HOLD_BROWSER
+box: 25 85 195 215
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_TOP
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Stored Images
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: browser_imagelist
+callback: ImageManDashboard::CB_browser_imagelist
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 60 400 95 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Add to list...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_store
+callback: ImageManDashboard::CB_button_store
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 90 340 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Delete
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_delete
+callback: ImageManDashboard::CB_button_delete
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: RETURN_BUTTON
+box: 25 340 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: View
+shortcut: ^M
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: 
+callback: ImageManDashboard::CB_button_retrieve
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 155 400 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Save...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_save_current
+callback: ImageManDashboard::CB_button_save_current
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 155 340 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Save...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_save_selected
+callback: ImageManDashboard::CB_button_save_selected
+argument: 0
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 25 310 195 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Image selected in list:
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 25 370 195 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Currently displayed  image:
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_END_GROUP
+type: 0
+box: 0 0 0 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_BEGIN_GROUP
+type: 0
+box: 0 10 10 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: meshinfo
+callback: 
+argument: 
+
+--------------------
+class: FL_BOX
+type: BORDER_BOX
+box: 15 360 215 130
+boxtype: FL_BORDER_BOX
+colors: FL_INDIANRED FL_BLACK
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 190 70 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_RIGHT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: E homog.
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_text_Ehomog
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 160 70 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_RIGHT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: E shape
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_text_Eshape
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 125 45 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_RIGHT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: depth
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 120 125 40 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_RIGHT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: area
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 85 190 140 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_E_homog
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 60 125 50 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_depth
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 160 125 65 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_area
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 85 160 140 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_E_shape
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 60 210 30
+boxtype: FL_FLAT_BOX
+colors: FL_INACTIVE FL_MCOL
+alignment: FL_ALIGN_CENTER|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_size
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 85 90 140 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_mouse_xy
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 90 55 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_RIGHT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Mouse
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 220 70 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_RIGHT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: E
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_text_E
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 85 220 140 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: meshinfo_E
+callback: 
+argument: 
+
+--------------------
+class: FL_BROWSER
+type: NORMAL_BROWSER
+box: 15 270 105 90
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_TOP_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Material
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: meshinfo_material
+callback: 
+argument: 
+
+--------------------
+class: FL_BROWSER
+type: NORMAL_BROWSER
+box: 125 270 105 90
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_TOP_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Groups
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: meshinfo_groups
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: PUSH_BUTTON
+box: 130 365 30 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: ?
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_meshinfo
+callback: MeshInfoDashboard::CB_mousemode
+argument: 0
+	value: 1
+
+--------------------
+class: FL_BUTTON
+type: PUSH_BUTTON
+box: 190 365 30 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: @-3<->
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_movenode
+callback: MeshInfoDashboard::CB_mousemode
+argument: 0
+
+--------------------
+class: FL_CHOICE
+type: NORMAL_CHOICE
+box: 130 395 90 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_BLACK
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Info for...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: choice_meshinfo
+callback: MeshInfoDashboard::CB_choice_meshinfo
+argument: 0
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 25 365 100 30
+boxtype: FL_FLAT_BOX
+colors: FL_INDIANRED FL_MCOL
+alignment: FL_ALIGN_RIGHT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Mouse Action:
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: meshinfo_text_mouse
+callback: 
+argument: 
+
+--------------------
+class: FL_CHECKBUTTON
+type: PUSH_BUTTON
+box: 75 425 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_DARKVIOLET
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Clicked
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_highlight
+callback: MeshInfoDashboard::CB_button_highlight
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 105 425 60 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Color...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_highlight_color
+callback: MeshInfoDashboard::CB_button_highlight_color
+argument: 0
+
+--------------------
+class: FL_CHECKBUTTON
+type: PUSH_BUTTON
+box: 75 455 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_DARKVIOLET
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Selected
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_meshinfo_selection
+callback: DisplayDashboard::CB_button_selectedmesh
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 105 455 60 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Color...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_meshinfo_selection_color
+callback: DisplayDashboard::CB_button_selectedmeshcolor
+argument: 0
+
+--------------------
+class: FL_BITMAPBUTTON
+type: NORMAL_BUTTON
+box: 160 365 30 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_BLACK
+alignment: FL_ALIGN_BOTTOM
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_select_triangle
+callback: MeshInfoDashboard::CB_mousemode
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 165 455 55 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Clear
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: 
+callback: MeshInfoDashboard::CB_button_meshinfo_clearselect
+argument: 0
+
+--------------------
+class: FL_END_GROUP
+type: 0
+box: 0 0 0 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_BOX
+type: FLAT_BOX
+box: 240 10 510 510
+boxtype: FL_FLAT_BOX
+colors: FL_TOP_BCOL FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_SouthEast
+name: image_region
+callback: 
+argument: 
+
+--------------------
+class: FL_BEGIN_GROUP
+type: 0
+box: 0 10 10 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: pixelinfo
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 20 170 70 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_RIGHT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Color = 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 90 100 140 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: info_mouse_xy
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 90 135 140 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: info_pixel_xy
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 90 170 140 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: info_color
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 20 135 55 30
+boxtype: FL_FLAT_BOX
+colors: FL_INDIANRED FL_BLACK
+alignment: FL_ALIGN_CENTER|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Pixel
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 20 100 55 30
+boxtype: FL_FLAT_BOX
+colors: FL_INDIANRED FL_MCOL
+alignment: FL_ALIGN_CENTER|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Mouse
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_BROWSER
+type: NORMAL_BROWSER
+box: 35 230 195 75
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_TOP_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Material
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: browser_material
+callback: 
+argument: 
+
+--------------------
+class: FL_BROWSER
+type: NORMAL_BROWSER
+box: 35 330 195 70
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_TOP_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Groups
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: browser_groups
+callback: 
+argument: 
+
+--------------------
+class: FL_CHECKBUTTON
+type: PUSH_BUTTON
+box: 25 410 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_GREEN
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Mark clicked pixel
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_mark
+callback: PixelInfoDashboard::CB_button_mark
+argument: 0
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 20 65 210 30
+boxtype: FL_FLAT_BOX
+colors: FL_INACTIVE FL_MCOL
+alignment: FL_ALIGN_CENTER|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: your message here
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: info_image_size
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 155 410 60 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Color...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_infopix_color
+callback: PixelInfoDashboard::CB_button_infopix_color
+argument: 0
+
+--------------------
+class: FL_END_GROUP
+type: 0
+box: 0 0 0 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_BEGIN_GROUP
+type: 0
+box: 0 10 10 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: imagemodification
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 15 75 125 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Gray
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_gray
+callback: ImageModDashboard::CB_button_gray
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 15 135 125 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Smooth
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_smooth
+callback: ImageModDashboard::CB_button_smooth
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 15 165 125 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Nonlinear Smooth
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_nonlinear
+callback: ImageModDashboard::CB_button_nonlinear
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 140 135 85 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Parameters...
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_smooth_params
+callback: ImageModDashboard::CB_button_smooth_params
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 140 165 85 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Parameters...
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_nonlinear_params
+callback: ImageModDashboard::CB_button_nonlinear_params
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 20 445 60 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Undo
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_SouthWest FL_SouthWest
+name: button_undomod
+callback: ImageModDashboard::CB_button_undo
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 155 445 60 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Redo
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_SouthWest FL_SouthWest
+name: button_redomod
+callback: ImageModDashboard::CB_button_redo
+argument: 0
+
+--------------------
+class: FL_BOX
+type: UP_BOX
+box: 140 75 85 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 80 445 70 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Undo All
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_SouthWest FL_SouthWest
+name: button_undoallmod
+callback: ImageModDashboard::CB_button_undoall
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 15 195 125 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Stencil
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_stencil
+callback: ImageModDashboard::CB_button_stencil
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 140 195 85 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Parameters...
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_stencil_params
+callback: ImageModDashboard::CB_button_stencil_params
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 15 105 125 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Max Contrast
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_maxcontrast
+callback: ImageModDashboard::CB_button_maxcontrast
+argument: 0
+
+--------------------
+class: FL_BOX
+type: UP_BOX
+box: 140 105 85 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BOTTOM_BCOL
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 15 225 125 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Equalize
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: button_equalize
+callback: ImageModDashboard::CB_button_equalize
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 140 225 85 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Parameters...
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: ImageModDashboard::CB_button_equalize_params
+argument: 0
+
+--------------------
+class: FL_END_GROUP
+type: 0
+box: 0 0 0 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_BEGIN_GROUP
+type: 0
+box: 0 10 10 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: automation
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 20 155 85 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Burn range:
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 15 210 100 30
+boxtype: FL_FLAT_BOX
+colors: FL_SLATEBLUE FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Flammability:
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_LABELFRAME
+type: ENGRAVED_FRAME
+box: 15 285 215 105
+boxtype: FL_NO_BOX
+colors: FL_BLACK FL_INDIANRED
+alignment: FL_ALIGN_TOP_LEFT
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Group B definition
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: NORMAL_INPUT
+box: 90 70 135 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Group A:
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_graingroup
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: NORMAL_INPUT
+box: 90 100 135 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Group B:
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_bdygroup
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: NORMAL_INPUT
+box: 120 155 55 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_TOP
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: min
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_minburn
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: NORMAL_INPUT
+box: 175 155 55 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_TOP
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: max
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_maxburn
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: INT_INPUT
+box: 120 210 55 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_TOP
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: local
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_local_flam
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: INT_INPUT
+box: 175 210 55 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_TOP
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: global
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_global_flam
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: NORMAL_INPUT
+box: 175 245 55 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Min selection size:  
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_min_selection
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: FLOAT_INPUT
+box: 170 290 55 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Aspect > 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_max_aspect
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: FLOAT_INPUT
+box: 170 325 55 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: or Perimeter > 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_max_perimeter
+callback: 
+argument: 
+
+--------------------
+class: FL_INPUT
+type: FLOAT_INPUT
+box: 170 355 55 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: and Aspect > 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_min_aspect
+callback: 
+argument: 
+
+--------------------
+class: FL_CHECKBUTTON
+type: PUSH_BUTTON
+box: 20 400 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Verbose?
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_verbose
+callback: 
+argument: 0
+
+--------------------
+class: FL_CHECKBUTTON
+type: PUSH_BUTTON
+box: 20 430 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Redraw?
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_auto_redraw
+callback: 
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 165 455 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: GO
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_go
+callback: AutomationDashboard::CB_go
+argument: 0
+
+--------------------
+class: FL_END_GROUP
+type: 0
+box: 0 0 0 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_BEGIN_GROUP
+type: 0
+box: 0 10 10 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: selectmethod
+callback: 
+argument: 
+
+--------------------
+class: FL_LABELFRAME
+type: ENGRAVED_FRAME
+box: 20 80 200 340
+boxtype: FL_NO_BOX
+colors: FL_BLACK FL_INDIANRED
+alignment: FL_ALIGN_TOP_LEFT
+style: FL_BOLDITALIC_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: 
+argument: 
+
+--------------------
+class: FL_CHECKBUTTON
+type: RADIO_BUTTON
+box: 20 85 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Burn
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_burn
+callback: SelectDashboard::CB_select
+argument: SM_BURN
+
+--------------------
+class: FL_CHECKBUTTON
+type: RADIO_BUTTON
+box: 20 115 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: RGB Burn
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_rgbburn
+callback: SelectDashboard::CB_select
+argument: SM_RGBBURN
+
+--------------------
+class: FL_CHECKBUTTON
+type: RADIO_BUTTON
+box: 20 145 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Demography
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_demography
+callback: SelectDashboard::CB_select
+argument: SM_DEMOGRAPHY
+
+--------------------
+class: FL_CHECKBUTTON
+type: RADIO_BUTTON
+box: 20 175 30 30
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_YELLOW
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Pixel
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_pixel
+callback: SelectDashboard::CB_select
+argument: SM_PIXEL
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 25 225 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Repeat
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_repeat
+callback: SelectDashboard::CB_repeat
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 130 85 85 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Parameters...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_burn_params
+callback: SelectDashboard::CB_burn_params
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 130 115 85 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Parameters...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: SelectDashboard::CB_rgbburn_params
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 130 145 85 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Parameters...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: SelectDashboard::CB_demography_params
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 135 355 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Undo
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_undo_selection
+callback: SelectDashboard::CB_undo_selection
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 135 385 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Redo
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_redo_selection
+callback: SelectDashboard::CB_redo_selection
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 40 355 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Clear
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_select_none
+callback: SelectDashboard::CB_select_none
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 40 385 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Invert
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_select_complement
+callback: SelectDashboard::CB_select_complement
+argument: 0
+
+--------------------
+class: FL_INPUT
+type: NORMAL_INPUT
+box: 90 225 75 30
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: input_selectclick
+callback: 
+argument: 0
+
+--------------------
+class: FL_CHECKBUTTON
+type: PUSH_BUTTON
+box: 165 230 25 25
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_RED
+alignment: FL_ALIGN_RIGHT
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: @8->
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_repeat_shifted
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 25 275 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Gray...
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_demograyfy
+callback: SelectDashboard::CB_demograyfy
+argument: 0
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 25 305 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: RGB..
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: 
+callback: SelectDashboard::CB_RGB
+argument: 0
+
+--------------------
+class: FL_BOX
+type: FLAT_BOX
+box: 130 175 85 30
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: box_pixelparams
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 135 440 65 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Info
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_select_info
+callback: SelectDashboard::CB_select_info
+argument: 0
+
+--------------------
+class: FL_END_GROUP
+type: 0
+box: 0 0 0 0
+boxtype: FL_NO_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: 
+callback: 
+argument: 
+
+=============== FORM ===============
+Name: quitform
+Width: 310
+Height: 130
+Number of Objects: 5
+
+--------------------
+class: FL_BOX
+type: UP_BOX
+box: 0 0 310 130
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: background
+callback: 
+argument: 
+
+--------------------
+class: FL_TEXT
+type: NORMAL_TEXT
+box: 60 20 190 40
+boxtype: FL_FLAT_BOX
+colors: FL_COL1 FL_MCOL
+alignment: FL_ALIGN_LEFT|FL_ALIGN_INSIDE
+style: FL_BOLD_STYLE
+size: FL_NORMAL_SIZE
+lcol: FL_BLACK
+label: Save session before quitting?
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: text
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: RETURN_BUTTON
+box: 10 70 90 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Save...
+shortcut: ^M
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_save
+callback: QuitForm::CB_quitsave
+argument: (long) fdui
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 210 70 90 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Cancel
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_cancel
+callback: QuitForm::CB_quitcancel
+argument: (long) fdui
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 110 70 90 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Don't Save
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_NorthWest FL_NorthWest
+name: button_quitnow
+callback: QuitForm::CB_quitnow
+argument: (long) fdui
+
+=============== FORM ===============
+Name: colorbrowser
+Width: 140
+Height: 330
+Number of Objects: 8
+
+--------------------
+class: FL_BOX
+type: UP_BOX
+box: 0 0 140 330
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: background
+callback: 
+argument: 
+
+--------------------
+class: FL_VALSLIDER
+type: VERT_FILL_SLIDER
+box: 20 20 30 170
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_RED
+alignment: FL_ALIGN_BOTTOM
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: slider_red
+callback: ColorBrowser::CB_slider
+argument: (long) fdui
+
+--------------------
+class: FL_VALSLIDER
+type: VERT_FILL_SLIDER
+box: 55 20 30 170
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_GREEN
+alignment: FL_ALIGN_BOTTOM
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: slider_grn
+callback: ColorBrowser::CB_slider
+argument: (long) fdui
+
+--------------------
+class: FL_VALSLIDER
+type: VERT_FILL_SLIDER
+box: 90 20 30 170
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_BLUE
+alignment: FL_ALIGN_BOTTOM
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: slider_blu
+callback: ColorBrowser::CB_slider
+argument: (long) fdui
+
+--------------------
+class: FL_BOX
+type: FRAME_BOX
+box: 20 195 100 40
+boxtype: FL_FRAME_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: box_new
+callback: 
+argument: 
+
+--------------------
+class: FL_BOX
+type: FRAME_BOX
+box: 20 240 100 40
+boxtype: FL_FRAME_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: box_old
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 20 290 45 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: OK
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_ok
+callback: ColorBrowser::CB_ok
+argument: (long) fdui
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 70 290 45 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Nope
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_cancel
+callback: ColorBrowser::CB_cancel
+argument: (long) fdui
+
+==============================
+create_the_forms

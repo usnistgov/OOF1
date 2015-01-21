@@ -1,0 +1,530 @@
+// -*- text -*-
+// $RCSfile: TODO,v $
+// $Revision: 1.16 $
+// $Author: langer $
+// $Date: 2001-10-25 18:07:52 $
+
+Should be a way to remove all incremental and absolute distortions
+from a node group or all node groups with one command. DONE
+
+Periodic boundary conditions --
+  new kind of node that is slave to another node?  node.x = node.slave.x - L
+
+
+BUG in 8-bit graphics --
+  switch back to Mesh after displaying Stress. Mesh is red, not
+gray. Select some elements. Switch back to Stress. 
+    X Error of failed request:  BadColor (invalid Colormap parameter)
+      Major opcode of failed request:  89 (X_StoreColors)
+      Resource id in failed request:  0x7800042
+      Serial number of failed request:  4081
+      Current serial number in output stream:  4082
+  OR
+  Open graphics window, switch to Stress, close window:
+    X Error of failed request:  BadColor (invalid Colormap parameter)
+      Major opcode of failed request:  79 (X_FreeColormap)
+      Resource id in failed request:  0x7800042
+      Serial number of failed request:  2838
+      Current serial number in output stream:  2839
+
+
+BUG? "delete grid" can be very slow because it removes elements from
+groups inefficiently. It should resize the groups to 0 first.
+
+
+BUG: in message window, 11 point font is smaller than 10 point font?
+Or is this just on magenta?  NOTHING TO DO ABOUT IT
+
+
+Create cursors at start-up and delete them before calling fl_finish. DONE
+
+
+BUG: visible region limits aren't displayed when switching back to Mesh
+Drawer (script in visregion.bug) FIXED
+
+Use killgrp() to delete and free XForms groups in dashboards.
+
+"reset" should unmutate elements. DONE
+
+BUG: elastic energy is not correct for planestrain with thermal expansion.
+ It doesn't include energy from out-of-plane thermal strain.
+
+
+What is the purpose of printedges? VESTIGIAL, BUT HARMLESS, REMOVED
+
+Slaved degrees of freedom:
+ To enslave the x or y dofs in a node group:
+	Create a new dof to be the master
+	master is fixed if any dof in the group is fixed
+	make all nodes in group point towards master
+	make DegreeOfFreedom a base class, with a virtual function
+		to return disp.
+	class SlavedDoF has a pointer to a MasterDoF.
+	Each node points toward its own SlavedDoF.
+	FIX & FREE flags, etc, have to be changed carefully--
+	If flags set in slaves propagate to the master, then
+		bc slave x right	
+		bc fix x right
+		bc free x top
+	screws up -- topright node is in both groups, so master dof for
+	right side is freed.
+		SO
+	Save flags in node group. Apply to nodes only when needed.
+		BUT
+	Now "bc fix both top; bc free both upperleft" doesn't work-- order
+	of application needs to be preserved.
+
+	Nodes have to keep count of how many times they've been fixed
+	(separately for x and y).
+	Node groups have to refuse to fix fixed dofs or free freed ones.
+	Then freeing a nodegroup won't free dofs that are fixed in
+	another group.
+	Setting flags should be a NodeGroup method, not a Grid method.
+
+  DONE
+---
+
+NodeInfo dashboard: node type is displayed even if the button is off. FIXED
+
+---
+
+BUG: isotropic, thermal expansion, fix y bottom, cool down
+     Why is there a large y force on the bottom?
+     Doesn't depend on poisson.
+initialize uniform isotropic gray=0.5 planestrain=false young=1 poisson=0. alpha=1
+bc fix both lowerleft
+bc fix y bottom
+ deltaT = -0.1
+equilibrate
+output force top
+output force bottom
+ 
+FIXED [sign error in Grid::forces()]
+
+---
+
+"output energy" is wrong too. See energybug.log.
+
+---
+
+BUG: Mutations aren't stored in goof files. Need to keep virgin state
+     and mutated state somehow.
+   Elements to fix:
+          DamageElement
+          DamIsoElement  (needs revert()!)
+          GriffithElement
+          GriffithElement2
+          ZimmmerElement
+      Mutated flag and mutation parameters have to be secret arguments.
+      Can be stored, read, and written in a MutatableElement base class.
+      Should the mutated Cijkl be stored in the ME base class too? Yes.
+
+      Only use this for elements derived from GTElement. DamIsoElement
+           is derived from TriElement, so it should do its own thing.
+       
+
+virtual Element::binarywrite(FILE*, const char formatflag)
+
+Will mutated and mutated_dflt have the right value when reading an ascii
+goof file if the args aren't present? Need a reset_defaults() function.
+In version 2, each MaterialProperty will need reset_defaults().
+ BUT Element::reset_defaults() needs to be called before each
+ElementCmd is executed, even before arguments are fetched. Will need
+to have a pre-emptive handler for Commands.
+ No-- *after* each element is created ElementCmd should call reset_defaults().
+
+--------
+
+ColorBrowser should not use callbacks -- avoid short loops.
+
+-------
+
+Save colorbar when saving images. Should be an option in the file browser.
+
+-------
+
+Display outline of undeformed sample for comparison.
+
+-------
+
+Output to file instead of to Message Window. Maybe revive "plot" commands?
+Make MsgStream a real stream, and allow some of the output to be saved to 
+a file? 
+   CmdStream pstr; // echo commands to Message Window
+   OutStream ostr; // print output to Message Window and to file, if desired
+   ErrStream estr; // to Message Window, highlighted.
+   etc.
+
+DONE, more or less, with "output tee".
+
+---
+
+Select mutated elements. Display mutated elements in some (settable) color.
+(Venkat's request.)
+
+----
+
+BUG:  Forces are misreported on enslaved DoF's. Have to temporarily
+emancipate before computing forces in Grid::forces().
+
+---
+
+Suggestions from Ed:
+1.  If one goes to the "groups elements" menu there 
+    is a "show" submenu, BUT in the "groups nodes" 
+    menu there IS NO "show" submenu.  This would be 
+    a useful feature.  (see 2. and NOTE)
+
+2.  If one sets a "bc" on a set on nodes in a node 
+    group, and then REMOVES these nodes from the 
+    node group, there is then no way to to free 
+    these nodes.  "bc free all" does not work.  
+    It did not help to put the nodes back into the 
+    group, and then to free them.  OOF says that 
+    they are free, as part of their "new" membership 
+    in the group, but they do not move on 
+    "equilibrate" so obviously they still remember 
+    that they were fixed from their previous membership.
+
+[NOTE: I have noticed that one cannot tell from the 
+"bc show" command what the status of a particular 
+node group is.  Suppose that a node group is a subgroup 
+of another node group, and one fixes the nodes in the 
+larger node group.  The nodes in the smaller (subset) 
+node group are also fixed by there membership, but OOF 
+says that they are free.  It would be more intuitive if 
+membership was globally determined, so that, for 
+example, a node group would say either:  x = fixed, or 
+x = free, or x = partial (when the elements in the group 
+are partially fixed and partially free.]
+
+---
+
+Change element orientations without changing any other properties, or
+recreating the elements.  Element::rotate()
+
+---
+
+Fix the "Stop" button. It takes too much cpu to check for mouse clicks
+inside the conjugate gradient routine. So..
+
+Fork a separate process as soon as graphics mode is started.
+In the child, exec a program that puts up the stop button when
+it receives a signal, and sends a signal to the parent when 
+the button is pressed. Trap this signal in the parent, and set
+a global stop flag. Check this flag in the conjugate gradient routine.
+
+The child process has to be forked before the grid is allocated,
+so that it doesn't consume too much memory.
+
+---
+
+Restructure main menu in FormDrawer
+
+Mesh
+Stress -> TensorMenu
+Strain -> strain submenu
+Energy Density
+
+Strain submenu 
+  Geometrical -> TensorMenu
+  Elastic -> TensorMenu
+
+TensorMenu
+  lab component -> XX YY ZZ YZ XZ XY
+  xtal component -> 11 22 33 23 13 12
+  principal -> max min middle
+  invariant -> 1 2 3
+  shear -> von Mieses, somebody elses
+
+---
+
+Elements have to keep total_strain, elastic_strain tensors.
+Maybe can get away without keeping a strain tensor at all, just stress,
+if recomputing strain isn't too slow. Then straintensor() becomes
+straintensor(StrainType). ... . No, it's too slow.
+
+The psi correction to strain gives the *elastic* strain required to have
+zero out-of-plane stress. So to compute geometric strain for plane
+stress, compute the elastic strain, and add alpha*deltaT.
+
+DONE
+
+---
+
+Fix manual for mutating elements:
+
+Add "only_once" to parameters and binary format.
+Knockdown2 isn't applied to all components.
+
+---
+
+BUG: Macros are recorded twice in log files! Once as the macroname, and once
+as the expansion! ????? Can't reproduce this...  Macros in .oofrc file
+are stored in the log file. The oofrc file and the log file are both read
+when oof is restarted, so the macros is defined more than once... Perhaps
+oofrc shouldn't be read when using -file.
+
+---
+
+BUG:  "plot out" doesn't work.
+      The waiter created by "plot out" writes its commands in the msg window.
+      After using "plot out" the "quit" command doesn't ask to save
+         the log file.
+
+---
+
+Save fullscale/min/max parameters in colordrawers, so that they don't have to
+be reset every time you switch from one drawer to another.
+
+
+"fullscale" should be set to 1, not fullscale_flag_dflt, when opening
+a new drawer.
+
+---
+
+Individual element output should be sorted by element index, rather than listing
+the boundary elements after all the interior elements.
+DONE
+---
+
+Trigonal element
+
+Add griffith fracture to trigonal elements!  DONE
+
+----
+
+output/individual restricted to groups.
+
+---
+
+Replace a group with the currently selected elements.
+
+---
+
+In PlotDashboard, does changing the focus make the input callbacks be called?
+No---
+The "save plot" command should record itself in the log file.
+It should fetch the input values from the input objects explicitly.
+If called from the gui, it should store log file lines for the inputs,
+before logging itself, *if the inputs have changed*.
+The input objects should save themselves, but there's no way to make
+sure that they are saved if they don't lose focus.
+
+FIXED
+---
+
+Statistics of invariants (at least inv1) over groups.  (Invariants,
+not eigenvalues!  Change name of current stress invariants statistics
+command.)   DONE
+
+---
+
+Can the new ElementFunctionBase/ElementFunction classes simplify
+the Color_Drawer classes?  It would be nice to be able to define
+the ElementFunction derived classes and have the Color_Drawers follow
+automatically.   DONE
+
+---
+
+BUG:  Open a graphics window, switch to a Color Drawer, create a mesh,
+switch back to Mesh Drawer... The mesh isn't drawn.  If the mesh is 
+created before the drawer is switched away from the Mesh drawer, then
+it works.  Bug was introduced in 1.0.8b13.  FIXED
+
+---
+
+It would be nice to be able to use the middle mouse button in the
+CrossSection dashboard to move one end of an existing plot line.
+The rubberband would somehow have to be told to use a different
+starting point.
+
+---
+
+Rename groups.
+Have to check that new name doesn't conflict with an old name! DONE
+Same goes for creating groups... NOT DONE YET
+
+---
+
+Print length of edges somehow
+
+--
+
+Don't warn about zero areas for empty elements?  No -- negative or zero
+areas can indicate crack closure.
+
+---
+
+"output area <group>" to get the total area of a group   DONE
+
+"output stress all" and "output strain all" for average stress  DONE
+
+---
+
+Overlay transparent stress data on top of material data?
+
+---
+
+Draw boundaries of groups and/or materials,
+perhaps with a delineate/<group> menu.
+Would draw an edge of an element in the group if the neighbor sharing
+that edge was not in the group.
+
+Currently there's no easy way for elements to find their neighbors...
+
+Could find the boundary of a group by looping over all elements in the
+group, making a list of edges. Sort the list and remove edges that
+appear twice.
+
+---
+
+Things to fix and check in Thermal OOF:
+
+Fix misplaced button. DONE
+Check binary and ascii goof file formats and ppm2oof compatibility. DONE
+Check that K_t is saved properly in goof files.
+Add grad T and heatflux to element info dashboard.  DONE
+Add grad T and heat flux to output individual, etc.
+Add outputs for magnitude of grad T and heat flux.
+
+---
+
+Check that add_slave and remove_slave are always paired up
+correctly. OK, I think...
+Does remove_slave ever get called for the wrong master?  OK, I think...
+
+How to preserve flags in dofs  when one group is contained in
+another?  For example, if group "outer" contains group "inner",
+then 
+   bc fix T inner
+   bc enslave T outer
+   bc emancipate T outer
+Dofs in inner will be free, but unfixable, since the inner group is
+marked as fixed already.   FIXED by preserving nfix in Slaved DoFs.
+
+For a group midright contained within group right:
+  bc enslave T top
+  bc fix T midright
+  bc enslave T right
+The top and right should be fixed, but they're free. midright is free
+  too.   FIXED
+
+There still are problems. Eg, if groups A and B have a node in common,
+and B and C have a node in common, and all are enslaved, there will
+be a master for each group, a meta-master for AB, and a meta-master
+for (AB)C.  If A B is then emancipated, meta-master (AB)C is still
+the controlling master for A and C, which is shouldn't be.  It's as if
+A and C are enslaved to each other, even though they don't have any
+nodes in common. FIXED
+
+The solution is (maybe) to emancipate all groups, and then re-enslave
+those that should be enslaved. The nodegroups should store a flag
+saying which dof's should be enslaved, and Grid::fix_masters should
+do the enslavement by looping over all groups, enslaving those that
+need it, and propagating nfix to the masters.  DONE
+
+Another problem:  enslaving a group with some nodes fixed sets the
+displacement of those nodes to the average displacement of the group.
+It shouldn't do that...
+
+---
+
+BUG: When a goof file is saved with a group that has been enslaved and
+then emancipated, the displacements of the groups are messed up when
+the file is read. This is because the enslavement is done after the
+dof values have been set. (??)  The right thing to do is to probably
+have the displacement of the master dof saved in the goof file, and
+have the enslavement done as the groups are read, rather than by
+repeating the command sequence.  Then when reading a goof file, 
+groups will never be enslaved and then immediately emancipated.
+
+BUG:  Goof files don't restore the absolute distortions of
+nodegroups. This isn't such a big problem, because the nodes have the
+right displacements.  But they DONT have the right forces!
+Absolute forces have to be stored in the goof file -- it's not
+sufficient to store the distortcmds, since running "increment" will
+increase the T's and displacements.  Or should nodal forces be written
+out too?  BOTH.  Forces in dof's can be optional args.  Is storing
+the distortcmds redundant?  Should the nodegroups store all of the
+incremental and absolute distortions in the goof file?
+
+---
+
+In DamIsoElement, should thermal_forces be knocked down? It had
+been, but wasn't reverted...
+
+Should MutableElement write a mutated thermal conductivity matrix?
+Will have to have a virgin_Kij() method, ala virgin_Cijkl()
+
+---
+
+Does enslaving n groups take n^2 operations?  The dof tree shouldn't
+be rebuilt after each enslavement command.
+
+---
+
+BUG in enslavement, still!
+Moving an enslaved node moves only its master, so distortions of an
+enslaved group are stored only in the group and in the master dof.
+Nodes in a fixed and enslaved group, when emancipated by
+Grid::fix_masters(), are moved back to their original positions by
+SlaveDegreeOfFreedom::emancipate(), which moves them to their
+undistorted positions.  So the distortion is lost...
+
+Solution: apply all distortions (as absolute distortions) after
+enslaving all dofs?  Yes.
+
+Nodes that are in more than one nodegroup get the total force from the
+nodegroups, but the displacement from only one group.  All the
+displacements applied to a node have to agree -- if they don't, the
+results are undefined.
+
+DONE
+
+---
+
+There's still a problem:  when doing an elastic equilibration,
+shufflelists() calls fix_masters(), which emancipates and reenslaves
+the elastic AND thermal dofs.  Because the dofs don't return to their
+original positions when emancipated and enslaved, the thermal field is
+changed by the elastic equilibration, which shouldn't happen.
+
+WOULD THIS WORK? The displacement of an enslaved dof should be the SUM
+of the slaves and the masters displacements.  A new master's
+displacement is zero.  When a group is emancipated, the master's
+displacement is added to the displacement of all of its slaves.
+DegreeOfFreedom::move and DegreeOfFreedom::disp will have to change...
+NO-- too complicated.
+
+FIXED -- split fix_masters() into fix_masters_elastic() and
+fix_masters_thermal(), which themselves call
+apply_absolute_elastic_distortion() and
+apply_absolute_thermal_distortion() to fix up what they've messed up.
+
+---
+
+What happens if a disconnected node is enslaved to other connected
+nodes?  Disconnection calculation needs to use dofs, not nodes, and
+be done after fix_masters is called.
+
+---
+
+fix_masters() doesn't need to actually enslave and emancipate dofs
+when it's called -- it should wait until absolutely necessary.
+The following operations require it to have really been called:
+  equilibration
+  fetching node information
+  redrawing (because enslaving dofs changes their values...)
+Since almost everything requires a redraw, delaying the call to
+fix_masters() isn't going to help much.
+  DONE
+
+---
+
+emancipate and enslave commands should redraw the grid.  NO.
+
+---
+
+Command to select disconnected nodes.
+Command to print locations of disconnected nodes.

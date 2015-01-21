@@ -1,0 +1,29 @@
+// -*- text -*-
+// $RCSfile: README,v $
+// $Revision: 1.2 $
+// $Author: langer $
+// $Date: 2000-10-13 20:02:44 $
+
+/* This software was produced by NIST, an agency of the U.S. government,
+ * and by statute is not subject to copyright in the United States.
+ * Recipients of this software assume all responsibilities associated
+ * with its operation, modification and maintenance. However, to
+ * facilitate maintenance we ask that before distributing modifed
+ * versions of this software, you first contact the authors at
+ * oof_manager@ctcms.nist.gov. 
+ */
+
+This directory contains the source code for the THERMAL version OOF.
+It was created by modifying Edwin Garcia's piezoelectric OOF, since
+the Poisson equation for electric potential is virtually the same as
+the diffusion equation for temperature.  NOT ALL OF THE VARIABLE NAMES
+WERE CHANGED.  Therefore, in the code, "phi", "voltage", and
+"temperature" all refer to the same thing.
+
+This version is a stopgap, intended to let us do thermal calculations
+with OOF 1. There are many things in it that aren't pretty, since the
+original OOF wasn't intended to deal with multiple fields.  We don't
+recommend extending this version to add new fields.  Wait for OOF 2.
+
+
+

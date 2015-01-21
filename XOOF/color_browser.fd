@@ -1,0 +1,160 @@
+Magic: 13000
+
+Internal Form Definition File
+    (do not change)
+
+Number of forms: 1
+Unit of measure: FL_COORD_PIXEL
+
+=============== FORM ===============
+Name: colorbrowser
+Width: 140
+Height: 330
+Number of Objects: 8
+
+--------------------
+class: FL_BOX
+type: UP_BOX
+box: 0 0 140 330
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_ALL
+gravity: FL_NoGravity FL_NoGravity
+name: background
+callback: 
+argument: 
+
+--------------------
+class: FL_VALSLIDER
+type: VERT_FILL_SLIDER
+box: 20 20 30 170
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_RED
+alignment: FL_ALIGN_BOTTOM
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: slider_red
+callback: ColorBrowser::CB_slider
+argument: (long) fdui
+
+--------------------
+class: FL_VALSLIDER
+type: VERT_FILL_SLIDER
+box: 55 20 30 170
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_GREEN
+alignment: FL_ALIGN_BOTTOM
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: slider_grn
+callback: ColorBrowser::CB_slider
+argument: (long) fdui
+
+--------------------
+class: FL_VALSLIDER
+type: VERT_FILL_SLIDER
+box: 90 20 30 170
+boxtype: FL_DOWN_BOX
+colors: FL_COL1 FL_BLUE
+alignment: FL_ALIGN_BOTTOM
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_Y
+gravity: FL_NorthWest FL_SouthWest
+name: slider_blu
+callback: ColorBrowser::CB_slider
+argument: (long) fdui
+
+--------------------
+class: FL_BOX
+type: FRAME_BOX
+box: 20 195 100 40
+boxtype: FL_FRAME_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: box_new
+callback: 
+argument: 
+
+--------------------
+class: FL_BOX
+type: FRAME_BOX
+box: 20 240 100 40
+boxtype: FL_FRAME_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_NORMAL_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: 
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: box_old
+callback: 
+argument: 
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 20 290 45 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: OK
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_ok
+callback: ColorBrowser::CB_ok
+argument: (long) fdui
+
+--------------------
+class: FL_BUTTON
+type: NORMAL_BUTTON
+box: 70 290 45 30
+boxtype: FL_UP_BOX
+colors: FL_COL1 FL_COL1
+alignment: FL_ALIGN_CENTER
+style: FL_BOLD_STYLE
+size: FL_DEFAULT_SIZE
+lcol: FL_BLACK
+label: Nope
+shortcut: 
+resize: FL_RESIZE_NONE
+gravity: FL_SouthWest FL_SouthWest
+name: button_cancel
+callback: ColorBrowser::CB_cancel
+argument: (long) fdui
+
+==============================
+create_the_forms

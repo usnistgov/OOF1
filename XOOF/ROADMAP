@@ -1,0 +1,384 @@
+// -*- text -*-
+// $RCSfile: ROADMAP,v $
+// $Revision: 1.2 $
+// $Author: langer $
+// $Date: 2000-09-06 20:10:46 $
+
+/* This software was produced by NIST, an agency of the U.S. government,
+ * and by statute is not subject to copyright in the United States.
+ * Recipients of this software assume all responsibilities associated
+ * with its operation, modification and maintenance. However, to
+ * facilitate maintenance we ask that before distributing modifed
+ * versions of this software, you first contact the authors at
+ * oof_manager@ctcms.nist.gov. 
+ */
+
+
+
+
+List of all(?) relevant files in OOF1/XOOF.
+This list may not be up-to-date!
+
+The words "grid" and "mesh" mean the same thing here...
+
+------------------------------------
+# Makefiles
+
+GNUmakefile	Sets flags and object file directories for different versions
+Makefile	Just calls GNUmakefile with GNU make, since non-GNU make is also
+		installed.
+sourcefiles.mk	List of all sourcefiles
+dependencies.mk	List of dependencies, made with "make depend"
+makefile.generic  Called by GNUmakefile to make each version
+
+OBJ*		Directories for object files for different versions
+
+
+------------------------------------
+# XForms code
+
+*.c files are created by fdesign, the XForms GUI designer.
+*.fd files are fdesign's own data files.
+*.C files are modified versions of the *.c files, and are the files
+that are actually used by OOF. The modification is done by hand, with
+the help of xdiff. These *.C files don't contain classes, just code
+that is called by classes defined elsewhere.
+
+In ppm2oof, I came up with a better scheme, which doesn't require
+modifying the *.c files, but I haven't converted the oof code to the
+new scheme.
+
+color_browser.c		GUI for choosing a color
+colorbrowser.C		The ColorBrowser class is defined in colorutils.C
+color_browser.fd
+color_browser.h		(created by fdesign, not used)
+
+create_form_drawer.C	GUI for the graphics window
+create_form_drawer.h
+form_drawer.fd
+form_drawer.c
+form_drawer.h		(created by fdesign, not used)
+
+quit.C			GUI for the "quit" dialog box
+quit.h
+quitform.c
+quitform.fd
+quitform.h
+
+forms.h		header file for XForms library
+
+------------------------------------
+# Menu code -- command parsing, both text and GUI versions, not specific
+                  to OOF or PPM2OOF
+
+charstring.C	Character string class (maybe can be replaced with
+charstring.h	std::string now)
+
+commands.C	GUI command windows
+
+editlineinputhandler.C	Interface to editline library code
+editlineinputhandler.h
+
+enum.C		Class that provides convenient I/O for enum types
+enum.h
+
+enumio.C	operator>> for Enum class
+enumio.h
+
+fdcode.C	fdesign code for Menu and Command windows, etc
+
+filename.C	Class representing file names. Can be set by a file 
+filename.h	browser in the GUI.
+
+menu.C		Main command parser routines
+menuDef.C	Templates used by command parser
+menuDef.h	Main command parser header file
+
+menucolor.C	Defines colors used by GUI
+menucolor.h
+
+menuform.C	GUI part of command parser
+menuform.h
+
+menuinterrupt.C	InterruptHandler class -- for both text interface and GUI
+menuinterrupt.h
+menuinterruptform.h GUI for the "stop" button
+
+menustream.C	Output stream for menu commands, errors, etc. Output goes
+menustream.h	to the tty or the Message window, as appropriate.
+
+specialchars.C	Defines which characters have special meaning to the parser
+specialchars.h
+
+tocharstring.C	Template for converting anything to a CharString
+tocharstring.h
+
+truefalse.C	Boolean class, written before bool was a C++ standard, and
+truefalse.h	with nicer I/O
+
+varobjects.C	Create XForms objects for different data types, allowing
+varobjects.h	different types to have different GUIs
+
+vec.C		A templated resizable vector class
+vec.h
+
+word.C		Word and WordList classes, used when parsing text.
+word.h
+
+-----------------------------------
+# OOF code
+ (separation into computational and interface code is not at all precise!)
+
+# ...mostly computational
+
+cell_coordinate.C	class for coordinates on an integer grid (eg, an image)
+cell_coordinate.h
+cijkl.C			Cijkl tensor class
+cijkl.h
+binaryread.C		Read a binary goof file
+binaryread.h
+createelement.C	Template for creating a new element and adding it to the grid
+createelement.h
+displacements.C		Converts displacements and forces stored on nodes to 	
+displacements.h		a vector, for numerical convenience
+equilibrate.C	Solve equations, compute forces, etc.
+eulerangle.C	Euler angle class
+eulerangle.h
+freedom.C	DegreeOfFreedom class
+freedom.h
+grid.C		Grid class. Main data structure for finite element grid
+grid.h
+griditerator.C	ElementIterator class for looping over all elements in grid
+griditerator.h
+groups.C	Template class for element and node groups, and iterators
+groups.h	for looping over all members of a group.
+hashmesh.C	Template class for hash tables for finding elements and
+hashmesh.h	nodes quickly.
+initfile.C	Read and write ascii goof files.
+initfile.h
+inputflags.h	Definitions of flags used when reading elements
+iterator.h	Generic iterator (templated base class)
+matrixconvert.C	Convert from SparseLinkMat to CompRow_Mat_double
+meshcoord.C	Coordinates of a point in 2d space (double, double)
+meshcoord.h
+modifygrid.C	A routine that rearranges lists of degrees of freedom.
+node.C		Node class
+node.h
+parameters.h	Global parameters, pointer to master Grid.
+preconditioner.C	Select and define preconditioners
+preconditioner.h
+random.C	Random number generator
+random.h
+shape.C		Classes representing shapes of selected regions.
+shape.h
+sparselink.C	Template class for storing a sparse matrix as a list of
+sparselink.h	linked list. Inefficient for computation, but easy to build.
+statistics.C	Accumulate statistical quantities
+statistics.h
+stiffness.C	Abstract representation of global stiffness matrix, allowing
+stiffness.h	computation to be done without actually computing the matrix.
+stressstrain.C	Two dimensional stress or strain
+stressstrain.h
+symmmatrix.C	A symmetric matrix class
+symmmatrix.h
+timer.C		Class used to get execution time
+timer.h
+timestamp.C	Class used to ensure that stored computations are up to date.
+timestamp.h
+twotwo.C	2x2 matrix class
+twotwo.h
+typeregistry.C	Classes for listing all node & element types, and choosing
+typeregistry.h	which type to construct at run time.
+
+element.C		Base class for all elements
+element.h
+
+trielement.C		Triangular element
+trielement.h
+
+genelement.C		General triangular element, derived from trielement,
+genelement.h		base class for most other elements.
+
+mutableelement.C	Elements that change their properties are
+mutableelement.h	derived from this as well.
+
+cubicelement.C		Cubic symmetry
+cubicelement.h
+damageelement.C		Isotropic element that becomes anisotropic 
+damageelement.h		when stressed
+damisoelement.C		Earlier version of damageelement
+damisoelement.h
+emptyelement.C		Empty element (no material)
+emptyelement.h
+griffith_element.C	Griffith element (simplistic cracking criterion)
+griffith_element.h
+hexelement.C		Hexagonal symmetry
+hexelement.h
+isoelement.C		Isotropic symmetry
+isoelement.h
+orthoexpand.C		Orthotropic symmetry, with 3 expansion coeffients.
+orthoexpand.h		(Called "eds_el")
+orthorhombic.C		Orthorhombic symmetry
+orthorhombic.h
+zimmer_element.C	Griffith element with hexagonal symmetry
+zimmer_element.h
+
+# ...mostly interface
+
+bc.C		Menu commands for specifying boundary conditions
+bc.h
+cmdlist.C	Maintain lists of commands used in specific contexts (eg
+cmdlist.h	setting boundary conditions) so that they can be recreated.
+distort.C	Menu commands for applying distortions and forces
+distort.h
+elementgroups.C	ElementGroup class, and menu commands for manipulating
+elementgroups.h	element groups
+generate.C	Generate a uniform grid.
+generate.h
+graphics.C	Miscellaneous graphics stuff, menu commands
+graphics.h
+init.C		Menu commands for initialization
+main.C		main(), root menu definition, startup and cleanup routines,
+main.h		and menu command interfaces for a few commands.
+nodegroups.C	Menu commands for managing groups of nodes
+nodegroups.h
+output.C	Menu command for output functions
+output.h
+plotout.C	Menu commands for the plot submenu
+plotout.h
+replace.C	Menu commands to replace one element in the grid with another
+replace.h
+robomouse.C	Menu commands that simulate a mouse click, so that a session
+robomouse.h	can be recreated from a log file.
+select.C	Menu commands for selecting elements
+select.h
+version.C	Version information and change history
+version.h
+
+# Graphics & GUI
+formdrawer.C	The graphics windows are instances of the FormDrawer class.
+formdrawer.h
+oofcanvas.C	Class representing the drawing region of the graphics window.
+oofcanvas.h	Derived from scrollcanvas.
+rubberband.C	Class for drawing rubberband objects on the canvas.
+rubberband.h
+scrollcanvas.C	The drawing region of the graphics window. Maintains
+scrollcanvas.h	a coordinate system, pixmap, etc.
+pixmap.C	Class representing pixmap displayed in scrollcanvas.
+pixmap.h
+color.C		Color class
+color.h
+colorutils.C	Utilities for handling colors, initializing graphics, etc.
+colorutils.h	(classes Graphics, ColorBrowser,
+colormap.C	class for mapping a range of doubles to a range of colors
+colormap.h	(NOT an X Colormap!)
+mouseclick.C	Class that represents a mouse action in the canvas.
+mouseclick.h
+cursor.C	XCursor class, defines different shaped cursors
+cursor.h
+
+
+# Drawers -- classes that draw various things on the canvas
+drawer.C	Base class for all Drawers
+drawer.h	
+meshdrawer.C	Draws the mesh. All other drawers are derived from this.
+meshdrawer.h	
+selectdrawer.C	Drawer that highlights selected elements
+selectdrawer.h
+colordrawer.C	Draws colored meshes.
+colordrawer.h	
+stressdrawer.C	Draws stress and strain, derived from colordrawer.
+stressdrawer.h
+
+
+# Dashboards -- GUI code, and menu commands for replaying from a script
+
+dashboard.C		Base class for all dashboards
+dashboard.h
+
+attributes.C		Attributes dashboard
+attributes.h
+colordashboard.C	Color dashboard
+colordashboard.h
+coorddashboard.C	Coordinates dashboard
+coorddashboard.h
+infodashboard.C		Element Info and Node Info dashboards
+infodashboard.h
+
+infocursor.h	Question mark cursor for info dashboards (from bitmap program)
+infomask.h	Mask for question mark cursor (from bitmap program)
+zoomcursor.h	Cursor used in coordinate dashboard (from bitmap program)
+zoommask.h	mask for zoomcursor (from bitmap program)
+
+------------------------------------
+# Numerical library routines (written by others)
+
+cg.C	Conjugate gradient method from IML++
+cg.h
+compcol_double.h	sparse matrix representation
+comprow_double.C	sparse matrix representation
+comprow_double.h
+coord_double.h		sparse matrix representation
+diagpre_double.C	diagonal preconditioner
+diagpre_double.h
+icpre_double.C		incomplete cholesky preconditioner
+icpre_double.h
+ilupre_double.C		incomplete LU preconditioner
+ilupre_double.h
+mvblasd.C		linear algebra on MV_Vector classes
+mvblasd.h
+mvmd.C			mv* files are MV_Vector, MV_Matrix, and supporting
+mvmd.h			classes
+mvmrf.h
+mvmult.C
+mvmult.h
+mvv.h
+mvvd.C
+mvvd.h
+mvvi.C
+mvvi.h
+mvvind.h
+mvvrf.h
+qsort_double.C		Used by preconditioners
+qsort_double.h
+qsort_int.C
+qsort_int.h
+spblas.h
+spmm.C
+spsm.C
+vecdefs.h
+
+
+------------------------------------
+# Miscellaneous utilities
+
+addfilter.C	Insert a filter (eg, gzip) into an existing stdio stream
+addfilter.h
+beginheader.h	Macros for declaration & definition of globals in .h files
+endheader.h	Undefines macros in beginheader.h
+commentline	Fancy comment line to delimit routines...
+delete_fl_group.C  Easy way to delete a group of XForms library objects
+delete_fl_group.h
+generic.h	Used to construct f77 names, so the blas library can be used
+lookfor.C	Read a particular character. Used when overloading operator>>
+lookfor.h
+memusage.C	Print memory usage
+memusage.h
+myfread.C	version of fread and fwrite that swap bytes on little-endian
+myfread.h	machines
+oofstipple.xbm	Pattern used as a background on the drawing region.
+readbinary.C	Template to read a binary number of any type.
+readbinary.h
+sccs_header	Included at the top of every file. SCCS info, and disclaimer.
+debug.C		Debugging routines, not included in production code
+debug.h
+
+ctype.h		Hacked versions of /usr/include files to let programs 
+stdlib.h	compiled under IRIX 6.5 run under IRIX 6.2
+
+--------------------------------------
+# Files not in ~langer/FE/XOOF:
+
+~langer/FE/lib/*	Directories containing required compiled libraries
+			(libblas.a, libforms.a, and libedit.a)
+~langer/FE/editline	Directory containing the editline source code

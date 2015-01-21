@@ -1,0 +1,56 @@
+# -*- makefile -*-
+# $RCSfile: Makefile.in,v $
+# $Revision: 1.7 $
+# $Author: langer $
+# $Date: 2000-09-06 20:11:21 $
+
+# This software was produced by NIST, an agency of the U.S. government,
+# and by statute is not subject to copyright in the United States.
+# Recipients of this software assume all responsibilities associated
+# with its operation, modification and maintenance. However, to
+# facilitate maintenance we ask that before distributing modifed
+# versions of this software, you first contact the authors at
+# oof_manager@ctcms.nist.gov. 
+
+# This makefile should be run by GNU make
+
+# We use $(srcdir) explicitly in dependencies so as not to depend on VPATH.
+srcdir=@srcdir@
+
+# Tell make where to find source files if we're making in a directory
+# not in the source directory (using gmake).
+VPATH=$(srcdir)
+
+include $(srcdir)/sourcefiles.mk dependencies.mk
+
+# C++ compiler
+CXX=@CXX@
+
+# C++ flags (for both compiler and linker)
+CXXFLAGS=@CXXFLAGS@ @X_CFLAGS@ @EXTRADEFS@
+LD=@LD@
+LDFLAGS=@LDFLAGS@ @LIBS@ @X_LIBS@ @X_PRE_LIBS@ -lX11 @X_EXTRA_LIBS@
+
+OFILES = $(CFILES:.C=.o)
+
+#### DEFAULT RULES ####
+
+.SUFFIXES: .o
+.C.o:
+	$(CXX) -c $(CXXFLAGS) -DMENUGFX $<
+
+#### TARGETS ####
+
+ppm2oof: $(OFILES) $(TEMPLATES) @EDITLINELIB@ dependencies.mk
+	$(LD) -o $@ $(OFILES) @EDITLINELIB@ $(CCFLAGS) $(LDFLAGS)
+
+TAGS: $(SOURCEFILES)
+	etags --typedefs-and-c++ --c++ $(SOURCEFILES)
+
+clean:
+	@CLEANUPCMD@
+
+depend: $(CFILES) $(HFILES)
+	cwd=`pwd`; \
+	( cd $(srcdir) && \
+	makedepend -f $$cwd/dependencies.mk -- $(DEPFLAGS) --  $(CFILES) > /dev/null 2>&1 )

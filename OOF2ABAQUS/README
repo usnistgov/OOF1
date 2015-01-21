@@ -1,0 +1,57 @@
+// -*- text -*-
+// $RCSfile: README,v $
+// $Revision: 1.1 $
+// $Author: langer $
+// $Date: 2000-12-26 16:40:52 $
+
+/* This software was produced by NIST, an agency of the U.S. government,
+ * and by statute is not subject to copyright in the United States.
+ * Recipients of this software assume all responsibilities associated
+ * with its operation, modification and maintenance. However, to
+ * facilitate maintenance we ask that before distributing modifed
+ * versions of this software, you first contact the authors at
+ * oof_manager@ctcms.nist.gov. 
+ */
+
+This is the README file for OOF2ABAQUS.
+
+OOF2ABAQUS converts data files (.goof files) created by PPM2OOF or OOF
+into input files for abaqus.  Only the geometrical information is
+converted.  That is, the abaqus input file will contain the positions
+of the nodes, the definitions of the elements (as lists of nodes), the
+nodes contained in each node group ("nset"), and the elements
+contained in each element group ("elset").  For each material
+used in the .goof file, oof2abaqus creates new element sets called
+"material-1", "material-2", and so on.  It issues "solid section"
+commands for each of these element sets, assigning to them materials
+named "material-1", "material-2", and so on.  The header of the output
+file lists the OOF material corresponding to each new material name.
+
+What OOF2ABAQUS does *not* do is to assign material properties to the
+material names used in the "solid section" commands.  It does not
+assign boundary conditions or distortions. 
+
+OOF2ABAQUS only works with .goof files created by the elastic versions
+of OOF and PPM2OOF. It will not work with the thermal versions.  Since
+it doesn't assign any material properties, this should not be a
+problem.  You can always choose to assign thermal properties within
+abaqus.
+
+OOF2ABAQUS was created by hacking out all of the computations from the
+OOF code, and adding some lines to write the abaqus file.  Tjerefore, it
+is an ugly kludge, and may or may not be kept up-to-date with changes
+in the OOF code.  On the other hand, there's not much in it that will
+need to be changed.
+
+
+USAGE:
+
+oof2abaqus [options] inputfile.goof
+
+The options are:
+
+      -e        Include empty elements
+      -6        Use six node triangles, instead of 3 node triangles
+      -o file   Send output to the file, instead of to stdout
+      -v        Print version number
+

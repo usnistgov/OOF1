@@ -1,0 +1,677 @@
+// -*- text -*-
+// $RCSfile: TODO,v $
+// $Revision: 1.21 $
+// $Author: langer $
+// $Date: 2001-04-03 14:28:07 $
+
+
+Need copy constructors and operator= for ColorTree and LinkList! DONE
+
+BUG -- recorded mouse clicks aren't independent of image size
+
+
+------
+
+Burn parameters are static in burn.C, so they can't be local to
+an ImageForm. Changing parameters in one form changes them in all.
+ -- FIXED
+
+Arson doesn't work. -- FIXED
+
+Have to make a Burn class and have each form, and the arson command, have
+their own instances of it. -- DONE
+
+BUG: after running arson, burning by hand dumps core -- FIXED
+
+-----
+
+Opening a new graphics window should scroll to the same place
+as previously scrolled window.
+
+When displaying on an IRIX 6.4 machine, an X error is generated during the
+first call to hide_dashboard() in ImageForm::ImageForm(). Not any more???
+
+----------------------------------------
+
+Thoughts on Adaptive Mesh & Groups
+
+  Can currently put pixels in groups.
+  Could also put triangles in groups.
+    Would have to distinguish pixel groups & triangle groups.
+  Transferring (inheriting) group membership from pixels to triangles:
+    Each triangle could become a member of all groups to which any pixel
+      contained in the triangle belongs.
+    Each triangle could become a member of all groups to which the pixel
+      under the center of the triangle belongs.
+    Each triangle could become a member of all groups to which the pixel
+      dominating the homogeneity calculation belongs (the representative pixel).
+    Transfer could happen automatically and silently when grid is written.
+    Transfer could happen only when explicitly requested.
+    What happens when pixel groups and triangle groups have the same name?
+
+  When subdividing, could compute homogeneity by making distinctions on basis of
+    material type
+    material type & parameters
+    gray level
+    membership in all groups
+    membership in some groups, but not others
+  Changing the way the homogeneity is calculated could change which
+    pixel represents the triangle, which could change the groups, if
+    triangle groups were assigned by looking at each triangle's
+    representative pixel.
+
+  If all these options (and more?) are provided, will it be too confusing?
+
+  Homogeneity computation relies on a definition of a metric in pixel
+    parameter space. Pixels are equivalent if the d(p1, p2)==0. Does
+    this concept help at all?
+
+  Where is homogeneity used?
+	AdaptiveMesh::refine_by_homogeneity()
+	AMTriangle::draw_material() -- draw most abundant material
+	AMTriangle::writegoof() -- assigns most abundant material to element
+	AMTriangle::material() -- used in infodashboard
+	AMTriangle::inherit_specimen_groups() -- gets groups from most abundant
+                                                   material
+	AMTriangle::inherit_all_groups() -- does this need to call homog()?
+
+  Homogeneity parameters govern who gets to vote (franchisement?)
+
+  AMTriangle::draw_material(), write_goof(), material() should not use
+   homogeneity by default -- they should use the current inheritance_method.
+
+  The current inheritance_method could be homogeneity, so homogeneity parameters
+   have to be global.
+
+  Do group inheritance and material inheritance have to use the same method?
+    No -- material inheritance can only be ELECTION or CENTER, not ALL,
+    since each triangle can only have one material.
+
+  Do election parameters have to be the same for groups & materials? Groups
+    and materials could elect different pixels.
+        Material election has to use material type & parameters.
+        Group election could plausibly not use material type & parameters.
+  Which one does "refine homogeneity" use? It needs its own set of election
+    criteria, or there could be two commands: "refine homogeneity
+    group" and "refine homogeneity material", or one command with an
+    argument saying which kind of homogeneity to use.
+
+  Menus:
+    adaptive_mesh/
+       refine/
+           homogeneity (group_memb, matl_type, matl_type+params)*
+       select/
+       create*
+       destroy*
+       save*
+       groups/
+           transfer_method = {election, center, all}
+           transfer_time   = {automatic, on_demand}
+           transfer_replace = {true, false} // do preexisting groups survive?
+           election_rules/
+               material type = {true, false}
+               material type & parameters = {true, false}
+               group membership = {true, false}
+           transfer*
+           new*
+           query_homogeneity*
+           select/
+           add/
+           subtract/
+           delete/
+           info/
+       materials/
+           transfer_method = {election, center}
+           transfer_time   = {automatic, on_demand}
+           transfer*
+           query_homogeneity*
+           election_rules/
+               group membership = {true, false}
+
+
+Check everything!
+
+ BUG -- (fixed)
+  When transfer_method != election, then homogeneity isn't updated by
+inherit_pixel_material(), so clicking on a triangle doesn't report the
+correct homogeneity.
+ Resolution --
+   Give everything a timestamp.
+     TimeStamp ::matl_params_changed
+     TimeStamp ::group_params_changed
+     TimeStamp AMTriangle::group_homogeneity_time, etc.
+     TimeStamp AdaptiveMesh::groups_inherited, etc.
+   AdaptiveMesh::groups_need_recomputing() doesn't change group_params_changed
+    unless transfer_time == automatic.
+
+
+Should be able to elect by gray value independent of other material
+parameters, since sometimes a whole grain will have the same gray
+value, but different material parameters at the edges. No -- not
+necessary!
+
+Election rules should allow some groups to vote and not others.
+Need GroupVarMenu<TYPE> to set flags.  Is a new variable created
+each time a group is installed? How does the rest of the program
+know about this variable? Can the variable's hook function be used?
+
+BUG  Not getting the right material always... See wrongmaterial.log FIXED?
+----
+
+**** Need to be able to smooth out interfaces! *****
+
+Weighted vector voting functions
+Each pixel (in a triangle? near a triangle?) votes with a weight depending on
+its distance from the center of the triangle. Votes are tabulated for each
+dimension in material parameter space (ie election_rules -- material type,
+material params, gray, group membership, etc).
+
+ v_T = \sum_{pixels} w(|\vec c(t)- \vec c(p)|) B_m \delta_{m,m(p)}
+Question: should v_T be normalized?
+
+B_m is basis vector in material space of material property m.
+w() is the weighting function, with finite radius, which maybe should scale
+    with the size of the triangle.
+c(t) is the center of the triangle.
+c(p) is the center of the pixel.
+delta says whether or not this pixel has property m. 
+
+By adjusting node positions (which come in via c(t), and maybe w), minimize
+\sum_T \sum_m |v_T - B_m|^2
+
+Probably have to include penalties for thin triangles.
+
+  -----
+
+The above makes no sense. Here's a better way:
+
+Identify all the pixel types.  Pixels differing in any way have
+different types. It doesn't matter whether they differ by a lot or a
+little, although the election rules can be used to ignore some types
+of differences.  The N different pixel types are assigned to
+dimensions in a material space M. Each pixel type corresponds to one
+Mhat, and the Mhat's are orthonormal.
+
+  To identify all pixel types, in MaterialCmd, when assigning
+  materials to pixel, keep a list of all Material*'s that have been
+  used. Allocate a new Material, but check it against previously
+  allocated ones before deciding to keep it.
+
+  Change Array<Vec<PixelGroup*> > Goof::pixelgrouplist;  
+  to     Array<LinkList<PixelGroup*> > Goof::pixelgrouplist;
+  so the list can always stay sorted.
+
+For each pixel p, compute its area a_p(t) within triangle t (this is
+the hard part).
+
+Compute the weighted average M vector for each triangle:
+  mavg(t) = \sum_p Mhat_p a_p(t)/A(t)
+Mhat_p is the M unit vector assigned to p's pixel type.
+
+Compute an energy for the mesh by summing over triangles t.
+The energy is minimized when triangles are uniform: mavg(t) == Mhat_x
+for some pixel type x.
+  E(t) = -\sum_{alpha=1^N} {1\over |mavg(t) - Mhat_alpha|^2 + \epsilon^2}
+The sum is over the dimensions of M (pixel types).
+epsilon is to keep things differentiable.
+E(t) can't be simply quadratic in mavg(t)-Mhat_alpha because a
+triangle that's nearly halfway between two Mhat's must be more
+strongly attracted to the closer one.
+
+Note that
+ |mavg(t) - Mhat_alpha|^2 = (a_\alpha(t)-1)^2 +
+				\sum_{\beta\ne\alpha} a_\beta(t)^2
+where a_\beta(t) is the fraction of triangle t's area taken up by
+pixels of type \beta. If pixel type \alpha doesn't appear in a triangle,
+then |mavg(t) - Mhat_alpha|^2 = 1.
+
+Minimize the total energy E = \sum_t E(t) with respect to the node
+positions by Monte Carlo.
+
+
+STILL TO DO...
+ 
+Include some edge swapping Monte Carlo moves.
+Refine mesh by dividing longest edge, not newest node.  DONE
+Try numerically (analytically) computing derivatives and using Euler
+  stepping, rather than MC, since most MC moves are rejected. Or, pick
+  a node at random, compute gradient of E numerically, and move in the
+  downhill direction. DONE, DOESN'T WORK THAT WELL
+
+-------
+
+Delete selected pixels from pixel groups. DONE
+
+-------
+
+Split InfoDashboard into Pixel & Mesh InfoDashboards
+
+Pixel Information
+  Mouse coords
+  Pixel coords [input]
+  Color
+  Effective Gray
+  Material [button for more info]
+  [Groups button]
+
+Mesh Information
+  Mouse
+  depth
+  N pixels
+  Center pixel
+  Elected pixel (group)  [button to show this pixel]
+  Elected pixel (material) [button to show this pixel]
+  homogeneity (group)
+  homogeneity (material)
+  Material [button to show more details]
+  [Groups button]
+Click should draw this triangle with a different border color
+
+DONE
+
+------
+
+When a command is deleted from a menu (as when a group is deleted)
+any open command windows should be deleted too. It doesn't work to
+have each CommandForm keep a list of forms copied from it, because
+the user might want to close some of the forms but keep the copies.
+What *is* happening when a group is removed from the menus? 
+
+-----
+
+Select triangles on interfaces (ie with neighbors who are different).
+(Anil's suggestion.)  DONE
+
+Select intersections of mesh groups. Unselect mesh groups.
+
+----
+
+Use TimeStamp to determine when goof needs to be redrawn, and in
+AdaptiveMesh::update_pixels();
+
+---
+
+Use Tannenbaum's method for removing noise without removing edges:
+d\phi/dt = (\phi_{xx} \phi_y^2 - 2\phi_x \phi_y\phi_{xy}
+	         + \phi_{yy} \phi_x^2)^{1/3}
+Iterate explicitly, centered differences, \delta t \approx 1/10
+
+DONE
+
+----
+
+BUG: Fix memory leak in "life". (Is that profound, or what?)
+    Actually, too much memory is used for all selections.
+ FIXED
+
+----
+
+ Colortree is recomputed each time the image is redrawn, because the
+image is first copied from the picture or material image, which doesn't have
+a colortree. Is this necessary?
+
+---
+
+BUG: loading a new ppmfile doesn't work... If the new image is the same
+size as the old one, it should be added to the gallery. If it's a different
+size, the Goof should be replaced.  FIXED
+
+Name in gallery isn't updated right away when the Goof is replaced.  FIXED
+
+Should have a "Save PPM" button in Gallery Dashboard.  DONE
+
+---
+
+Selection parameters should be local to ImageForm or SelectDashboard, not
+global! -- ok for burn,  demography needs to be fixed.  DONE
+
+---
+
+If no materials are assigned, E_homogeneity should be 0. DONE
+
+---
+
+New command to report highest E. DONE
+
+---
+
+Restructure Info dashboard
+
+Pixel Info Dashboard:
+ Width, height
+ Mouse coords
+ Pixel coords
+ Color
+ Material [display in browser]
+ Groups [display in browser]
+ Button to turn marking on and off
+
+Mesh Info Dashboard: (or just Mesh?)
+  Mouse coords
+  Depth
+  Area*
+  E shape*
+  E homogeneity*
+  E total*
+  Material [? button]
+  Groups [display in browser]
+  ---
+  Mouse mode radio buttons
+     get info        [? icon]
+     select triangle [triangle icon]
+     move node       [arrow icon]
+  Info mode radio buttons (or choice?)
+     info for clicked triangle
+     info on current selection (only for items with a *)
+  Unselect all button
+  
+Select Dashboard
+  get rid of Mesh triangle button
+
+No more "mark constituency".
+Don't print homogeneity or representative pixel.
+
+Display E shape, E homog. and mouse coords as node is being dragged.
+Button to change highlight color, selection color
+
+DONE
+
+---
+
+Flag to determine whether each group should participate in Ehomog
+calculation. Then get rid of the distinction between group homogeneity
+and material homogeneity.  If membership in a group is a
+distinguishing feature for Ehomog, then it's a distinguishing feature
+for elections.
+
+---
+
+TimeStamp constructor should probably initialize to 0, not globaltime,
+so that operations that haven't occurred are always out of date.
+
+---
+
+Mesh operations should be undoable.  DONE
+
+---
+
+Avoid subdividing mesh when triangles get down to the pixel scale. DONE
+
+---
+
+BUG: Mesh triangles aren't colored correctly when using active
+regions.  The triangle color is taken from the color of its
+representative pixel. More than one triangle can share a pixel, even
+if not all the triangles are active.  So triangle color needs to be
+stored in the triangle, but the colortree doesn't work for colors not
+stored in the image.
+Solution: the mesh should have its own colortree...
+
+FIXED
+
+But now there's a new BUG: selected mesh triangles are only displayed
+in the material/triangle mode. Should be visible in all display modes.
+
+FIXED, somewhat clumsily.
+
+---
+
+When dividing triangles, divide in such a way to minimize the
+resulting E of the children.  DONE
+
+---
+
+Memory leaks in colortree?  NO - leak in Goof destructor. FIXED
+
+---
+
+Memory fragmentation problems with adaptive mesh refinement?
+FIXED on SGI by using -lmalloc correctly.  Still a problem on Sun.
+
+---
+
+Loading a second image of the same size doesn't display it,
+although it's added to the image gallery.  The gallery should
+automatically switch to the new image.
+
+---
+
+Copy files from XPPM2OOF_COPY that use old iostream.h library.
+New iostream doesn't work with MessageWindow, and doesn't port to
+other SGI's.   DONE
+
+---
+
+Read gzipped ppm files.  DONE
+
+---
+
+Why is selecting individual pixels in a large image so slow?
+
+---
+
+Change the imageform menu structure to
+
+   mouse	(old)  [ImageForm menu starts here]
+   zoombutton	(old)
+   scroll	(old)
+   resize	(old)
+   close	(old)
+   save		(old)
+   dashboardnumber (old)
+   dashboard  (new!)
+	display
+	coordinates
+	select
+	pixel
+	mesh
+	modify
+	gallery
+
+This appears in the main menu as the "graphics <menuform_id>" submenu.
+It appears in the ImageForm::configmenu as the "local" submenu.
+
+get_imageform() and get_dashboard() can see if the first element of
+the path is "graphics".  If it is and the third element isn't
+"dashboard", they determine the current form from the menuform_id in
+the command path and the dashboard from the current form's current
+dashboardnumber (reading an old log file).  If the first word is
+"graphics" and the third word is "dashboard" they use the fourth
+element to determine the dashboard (reading a new log file).  If the
+first element isn't "graphics", they use incipient_form for the form
+and get the dashboard name from the *second* element of the command
+path (reading a config file).
+ For this to work, the commands will have to be in the menu twice.
+The old versions (without "dashboard" in the path) will have to
+be MOPT_NOPRINT.
+
+When reading from a config file, info displayed in pixel and mesh
+dashboards should be recreated.  Do this by saving lastclick if
+beenclicked==1.
+
+DONE
+
+---
+
+When using the mouse to move a node in the highlighted triangle, the
+highlight doesn't move.  It's because MeshInfoDash::clickedtriangle
+still points to the triangle in the previous copy of the mesh!
+clickedtriangle is updated in MeshInfoDash::display_info, but only if
+mousemode==MM_QUERY.  clickedtriangle should be passed on when the
+mesh is copied, if possible. If a triangle is divided, clickedtriangle
+should go to the triangle containing the click, if possible.
+
+The trouble is that the highlight is an ImageForm property, not
+a Triangle or Mesh property.  Different ImageForms can have different
+triangles highlighted.
+
+Sort of FIXED-- clickedtriangle is updated for all mousemodes, but 
+it's determined from the clicked pixel, so by dragging or annealing
+the clicked triangle can change unintuitively.
+
+---
+
+BUG: The selected pixel in the pixelinfo dashboard moves when the
+image is zoomed!  FIXED
+
+---
+
+Get -start to read config files too...    DONE
+
+---
+
+Why can't the commandfile command read config files? FIXED
+
+---
+
+Config files should save contents of the message window
+
+---
+
+Stencil image modifications don't work??  FIXED
+
+---
+
+Do config files work on Sun? Can they be read from the commandfile
+command?  Can compressed files be read?
+
+Config files can't be read from the commandfile menu anywhere...  FIXED
+
+---
+
+Allow portions of the adaptive mesh to be saved to a goof file.
+Will require converting truncated triangles to pairs of triangles.
+
+---
+
+Periodic Boundary Conditions
+
+Nodes can be tied to other nodes.
+If only one direction is periodic, nodes are tied to at most one other
+node.  If both directions are periodic, all four corners are tied
+together.
+
+Mesh has to keep a list of node groups.
+Nodes have to know which group (if any) they belong to.
+Groups have to be copied when mesh is copied.
+
+Things that have to check for periodicity:
+  moving a node by MC, smooth, etc.
+     When creating nodelist for MC & smooth, only include one node
+     from each group. (AdaptiveMesh::activenodes())
+  moving a node by hand
+  refining a triangle on an edge
+  creating a new node on an edge
+  AMNode::areas_ok()
+  application of stencils, smoothing algorithms, etc. 
+    Maybe these don't have to worry -- if there are pbc's, then the
+    image presumably was computer generated, and image modification
+    tools won't be used.
+
+
+Should AMNode::triangle keep track of triangles on the tied nodes?
+
+Have to write out nodegroups and commands to enslave them.
+OOF should not put these nodegroups into the menus.
+
+---
+
+BUG  - refine group -- new mesh not displayed until after "stack undo"
+hit.  The group is being stored as a list of triangles, but the
+list has triangles from the wrong mesh.   FIXED
+
+---
+
+Should derived Dashboard destructors have "delete menu" in them,
+or should this be in the base Dashboard class?
+
+Program crashes when a graphics window is closed -- is this due to the
+new Automate dashboard, or did it do this before?  FIXED
+
+---
+
+BUG Changes to dashboards input objects aren't logged if <return>
+isn't hit. They should be logged when "log/save" is run, or when the
+dashboard is closed (either by switching to another dashboard, or by
+closing the window).  The automate dashboard works correctly, though.
+
+---
+
+Make selected pixel color translucent by modifying
+Goof::mark_selected_pixels  DONE
+
+---
+
+BUG  During refinement, have to prevent loops in which triangle
+A requires division of nbr B, B requires division of C, and C requires
+division of A.  Since A hasn't yet been divided, this loop never
+stops. The solution is to divide the triangle, and *then* divide the
+neighbor, not the other way around.  FIXED
+
+Are triangles ever copied when divisions are pending? (NO) The old method
+copied the marked_for_division flag, which doesn't exist anymore.
+
+---
+
+Text mode
+  Make ImageForm a virtual base class, with two derived classes:
+  ImageFormGfx and ImageFormTxt.  ImageFormTxt does no graphics,
+  and ImageFormGfx is the old ImageForm.  The Dashboards will have to
+  know that they shouldn't update graphical fields if the form is a
+  Txt form....  Can we use virtual functions for this somehow?
+DONE, but not the most elegant way...
+
+---
+
+System menu:
+   cd directory=
+   mkdir directory=
+   execute command=
+   remove file=
+
+---
+
+Automation -- Display all of group A during automation, so that the
+    user can more easily see when to stop.  So the selection will have
+    to be expanded at each iteration instead of at the end.
+
+    Ask whether or not to go on after a specified # of iterations.
+
+    Preferentially pick points near the mouse so that the user can
+    guide the selection process.
+
+---
+
+Mesh dashboard:  an option that snaps a node to the nearest interface
+when it's moved.
+
+---
+
+Why aren't the materials sorted properly in the materials/default
+menu?
+
+---
+
+Change plane_tempgrad to an Enum instead of a TrueFalse in the
+material cmd arguments.   DONE
+
+T0 is missing from the arguments for the damage element.  FIXED
+only_once is read wrong by oof or written wrong by ppm2oof. Is it
+   wrong for all mutable elements? No, it's ok for zimmer...  FIXED
+Something majorly wrong with griffith and griffith2 in binary goof
+   files as written by ppm2oof. FIXED
+
+---
+
+Need operator== for Enum template types.
+
+---
+
+Fix (nail down) selected adaptive mesh nodes so that they don't move
+when annealed, etc.
+
+---
+
+Mesh triangles should get their color from their material, not from
+the representative pixel.  If the material has been assigned by hand,
+the representative pixel's color may be incorrect.
